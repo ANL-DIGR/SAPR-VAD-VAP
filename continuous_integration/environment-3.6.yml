@@ -6,6 +6,7 @@ channels:
    - python=3.6
    - arm_pyart
    - numpy
+   - pandas
    - netcdf4
    - xarray
    - matplotlib
