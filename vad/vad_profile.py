@@ -9,9 +9,29 @@ import socket
 
 from .config import get_metadata
 class vad():
+    """ Class for creating VAD objects for ploting. """
     
-    def __init__(self, files, vel_field=None, z_want=None):
+    def __init__(self, files, vel_field=None, z_want=None, gatefilter=None):
+        """
+        Velocity Azimuth Display
         
+        Parameters
+        ----------
+        files : str
+            list of radar file path.
+        vel_field : string, optional
+            Velocity field used for VAD calculation
+        z_want : array. optional
+            Heights for where to sample vads from.
+            None will default to np.linspace(0, 10000, 101).
+        
+        Optional Parameters
+        -------------------
+        gatefilter : GateFilter
+            A GateFilter indicating radar gates that should be excluded
+            from the import vad calculation.
+        
+        """
         self.u_wind = []
         self.v_wind = []
         self.speed = []
@@ -25,7 +45,7 @@ class vad():
             self.vel_field = vel_field
         
         if z_want is None:
-            self.z_want = np.linspace(0, 10000, 101)
+            self.z_want = np.linspace(0, 10000, 100)
         else:
             self.z_want = z_want
         
@@ -33,7 +53,9 @@ class vad():
         
     def create_vad(self, files, **kwargs):
         """
-
+        Creates a VAD object containing u & v wind components,
+        wind speed, direction, and height.
+        
         """
         for file in files:
             try:
@@ -75,6 +97,22 @@ class vad():
         self.lat = np.array(latitude)
         
     def write(self, config, file_directory=None):
+        """
+        Writes VAD file to a netCDF output
+        
+        Parameters
+        ----------
+        config : str
+            A string of the radar name found from config.py that contains values
+            for writing, specific to that radar.
+        
+        Optional Parameter
+        ------------------
+        file_directory : str
+            File path to the file output folder of which to save the VAD netCDF files.
+            If no file path is given, file path defaults to users home directory.
+            
+        """
         if file_directory is None:
             file_directory = os.path.expanduser('~')
         
