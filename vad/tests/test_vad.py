@@ -11,7 +11,7 @@ import os
 
 def test_vad_profile():
     # Test vad.vad
-    input_files = glob.glob('2017*', recursive=True)
+    input_files = glob.glob('./vad/tests/2017*', recursive=True)
     input_files.sort()
 
     vel_field = 'corrected_velocity'
@@ -28,7 +28,7 @@ def test_vad_profile():
 
 def test_vad_quicklooks():
     # Test vad.quicklooks
-    input_file = 'example_vad.nc'
+    input_file = './vad/tests/example_vad.nc'
     config = 'xsaprvadI5'
     outdir = '.'
 
