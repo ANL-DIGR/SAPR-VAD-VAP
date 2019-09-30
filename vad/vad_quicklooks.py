@@ -69,7 +69,7 @@ def quicklooks(file, config, image_directory=None):
     plt.xlabel('Time (UTC)')
     
     plt.savefig(image_directory + '/' + plot_values['save_name']
-                + '.' + str(date) + '.000000.png') 
+                + '.' + str(date) + '.000000.png', bbox_inches='tight') 
     
     
     
